@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Util Extension</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+
+<body id="body">
+  <h2>Util Extension</h2>
+  <div class="dropdown" id="darkmode-dropdown">
+    <div class="dropdown-header">
+      <span>Auto Dark Mode Notifier</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="dropdown-content">
+      <div id="mode-status">Detecting mode...</div>
+      <button id="open-flag">Open Auto Dark Mode Flag</button>
+    </div>
+  </div>
+  <div class="dropdown" id="primevideo-dropdown">
+    <div class="dropdown-header">
+      <span>Prime Video Speed Control</span>
+      <span class="arrow">▶</span>
+    </div>
+    <div class="dropdown-content">
+      <label for="speed-input">Set playback speed:</label>
+      <input type="number" id="speed-input" min="0.1" max="16" step="0.1" value="1.5"
+        style="width:60px; margin-left:8px;" />
+      <button id="set-speed">Set Speed</button>
+      <div id="speed-status" style="margin-top:8px;"></div>
+    </div>
+  </div>
+  <div class="dropdown" id="adremover-dropdown">
+    <div class="dropdown-header"><span>Ad/Overlay Remover</span><span class="arrow">▶</span></div>
+    <div class="dropdown-content">
+      <button id="remove-ads">Remove Ads/Overlays</button>
+      <div id="adremover-status"></div>
+    </div>
+  </div>
+  <div class="dropdown" id="pip-dropdown">
+    <div class="dropdown-header"><span>Picture-in-Picture (PiP) Enhancer</span><span class="arrow">▶</span></div>
+    <div class="dropdown-content">
+      <button id="pip-btn">Toggle PiP for Video</button>
+      <div id="pip-status"></div>
+    </div>
+  </div>
+  <div class="dropdown" id="shortcuts-dropdown">
+    <div class="dropdown-header"><span>Custom Keyboard Shortcuts</span><span class="arrow">▶</span></div>
+    <div class="dropdown-content">
+      <div>Set up in extension options.</div>
+      <button id="open-shortcuts">Open Shortcuts Settings</button>
+    </div>
+  </div>
+  <div class="dropdown" id="autoscroll-dropdown">
+    <div class="dropdown-header"><span>Auto-Scroll</span><span class="arrow">▶</span></div>
+    <div class="dropdown-content">
+      <label for="scroll-speed">Speed:</label>
+      <input type="number" id="scroll-speed" min="1" max="100" value="10" style="width:60px; margin-left:8px;" />
+      <button id="start-scroll">Start</button>
+      <button id="stop-scroll">Stop</button>
+      <div id="autoscroll-status"></div>
+    </div>
+  </div>
+  <div class="dropdown" id="themeinjector-dropdown">
+    <div class="dropdown-header"><span>Dark Mode/Theme Injector</span><span class="arrow">▶</span></div>
+    <div class="dropdown-content">
+      <button id="inject-dark">Force Dark Mode</button>
+      <button id="remove-dark">Remove Dark Mode</button>
+      <div id="themeinjector-status"></div>
+    </div>
+  </div>
+  <div class="dropdown" id="notes-dropdown">
+    <div class="dropdown-header"><span>Quick Notes/Clipboard Manager</span><span class="arrow">▶</span></div>
+    <div class="dropdown-content">
+      <textarea id="quick-note" rows="3" style="width:95%"></textarea>
+      <button id="save-note">Save Note</button>
+      <button id="copy-note">Copy to Clipboard</button>
+      <div id="notes-status"></div>
+    </div>
+  </div>
+  <div class="dropdown" id="tabtools-dropdown">
+    <div class="dropdown-header"><span>Tab Management Tools</span><span class="arrow">▶</span></div>
+    <div class="dropdown-content">
+      <button id="close-tabs">Close All Tabs</button>
+      <button id="mute-tabs">Mute All Tabs</button>
+      <button id="save-session">Save Session</button>
+      <button id="restore-session">Restore Session</button>
+      <div id="tabtools-status"></div>
+    </div>
+  </div>
+  <div class="dropdown" id="screenshot-dropdown">
+    <div class="dropdown-header"><span>Screenshot & Annotation</span><span class="arrow">▶</span></div>
+    <div class="dropdown-content">
+      <button id="take-screenshot">Capture Screenshot</button>
+      <div id="screenshot-status"></div>
+    </div>
+  </div>
+  <div class="dropdown" id="tts-dropdown">
+    <div class="dropdown-header"><span>Text-to-Speech</span><span class="arrow">▶</span></div>
+    <div class="dropdown-content">
+      <textarea id="tts-text" rows="2" style="width:95%"></textarea>
+      <button id="speak-text">Speak</button>
+      <button id="stop-speak">Stop</button>
+      <div id="tts-status"></div>
+    </div>
+  </div>
+  <div class="dropdown" id="pricetracker-dropdown">
+    <div class="dropdown-header"><span>Price Tracker/History</span><span class="arrow">▶</span></div>
+    <div class="dropdown-content">
+      <input type="text" id="price-url" placeholder="Product URL" style="width:70%" />
+      <button id="track-price">Track Price</button>
+      <div id="pricetracker-status"></div>
+    </div>
+  </div>
+  <div class="dropdown" id="translate-dropdown">
+    <div class="dropdown-header"><span>Auto-Translate</span><span class="arrow">▶</span></div>
+    <div class="dropdown-content">
+      <textarea id="translate-text" rows="2" style="width:95%"></textarea>
+      <button id="translate-btn">Translate</button>
+      <div id="translate-status"></div>
+    </div>
+  </div>
+  <div class="dropdown" id="focusmode-dropdown">
+    <div class="dropdown-header"><span>Focus Mode</span><span class="arrow">▶</span></div>
+    <div class="dropdown-content">
+      <button id="start-focus">Start Focus Mode</button>
+      <button id="stop-focus">Stop Focus Mode</button>
+      <div id="focusmode-status"></div>
+    </div>
+  </div>
+  <div class="dropdown" id="customcss-dropdown">
+    <div class="dropdown-header"><span>Custom CSS/JS Injector</span><span class="arrow">▶</span></div>
+    <div class="dropdown-content">
+      <textarea id="custom-css" rows="2" placeholder="Custom CSS" style="width:95%"></textarea>
+      <button id="inject-css">Inject CSS</button>
+      <textarea id="custom-js" rows="2" placeholder="Custom JS" style="width:95%; margin-top:8px;"></textarea>
+      <button id="inject-js">Inject JS</button>
+      <div id="customcss-status"></div>
+    </div>
+  </div>
+  <div class="dropdown" id="linkgrabber-dropdown">
+    <div class="dropdown-header"><span>Link Grabber</span><span class="arrow">▶</span></div>
+    <div class="dropdown-content">
+      <button id="grab-links">Grab All Links</button>
+      <textarea id="links-output" rows="3" style="width:95%; margin-top:8px;"></textarea>
+      <button id="copy-links">Copy Links</button>
+      <div id="linkgrabber-status"></div>
+    </div>
+  </div>
+  <div class="dropdown" id="mediadl-dropdown">
+    <div class="dropdown-header"><span>Media Downloader</span><span class="arrow">▶</span></div>
+    <div class="dropdown-content">
+      <button id="download-media">Download Media</button>
+      <div id="mediadl-status"></div>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+
+</html>
