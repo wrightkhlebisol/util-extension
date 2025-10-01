@@ -579,4 +579,53 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
+
+  // Password Visibility Toggle
+  const togglePasswordsBtn = document.getElementById("toggle-passwords");
+  const passwordToggleStatus = document.getElementById("password-toggle-status");
+  if (togglePasswordsBtn && passwordToggleStatus) {
+    togglePasswordsBtn.addEventListener("click", () => {
+      chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+        if (!tabs || !tabs[0] || !tabs[0].id) {
+          passwordToggleStatus.textContent = "Could not find active tab.";
+          return;
+        }
+        chrome.scripting.executeScript({
+          target: { tabId: tabs[0].id },
+          func: function () {
+            const passwordFields = document.querySelectorAll('input[type="password"], input[type="text"][data-was-password="true"]');
+            let toggledCount = 0;
+            
+            passwordFields.forEach(field => {
+              if (field.type === "password") {
+                field.type = "text";
+                field.setAttribute("data-was-password", "true");
+                toggledCount++;
+              } else if (field.getAttribute("data-was-password") === "true") {
+                field.type = "password";
+                field.removeAttribute("data-was-password");
+                toggledCount++;
+              }
+            });
+            
+            if (toggledCount > 0) {
+              return `Toggled ${toggledCount} password field${toggledCount > 1 ? 's' : ''}.`;
+            } else {
+              return "No password fields found on this page.";
+            }
+          }
+        }, function (results) {
+          if (chrome.runtime.lastError) {
+            passwordToggleStatus.textContent = "Error: " + chrome.runtime.lastError.message;
+            return;
+          }
+          if (results && results[0] && results[0].result) {
+            passwordToggleStatus.textContent = results[0].result;
+          } else {
+            passwordToggleStatus.textContent = "Unable to toggle password visibility.";
+          }
+        });
+      });
+    });
+  }
 }); 
